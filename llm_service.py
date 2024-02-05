@@ -221,8 +221,13 @@ class TensorRTLLMEngine:
             if transcription_output["uid"] not in conversation_history:
                 conversation_history[transcription_output["uid"]] = []
 
-            prompt = transcription_output['prompt'].strip()
-                                
+            if transcription_output["eos"]:
+                prompt = transcription_output['prompt'].strip()
+                prompt_queue = []
+                prompt_queue.append(prompt)
+                audio_queue.put({"llm_output": prompt_queue, "eos": transcription_output["eos"]})
+
+            '''                 
             # if prompt is same but EOS is True, we need that to send outputs to websockets
             if self.last_prompt == prompt:
                 if self.last_output is not None and transcription_output["eos"]:
@@ -331,6 +336,7 @@ class TensorRTLLMEngine:
                 )
                 self.last_prompt = None
                 self.last_output = None
+            '''
 
 def clean_llm_output(output):
     output = output.replace("\n\nDolphin\n\n", "")

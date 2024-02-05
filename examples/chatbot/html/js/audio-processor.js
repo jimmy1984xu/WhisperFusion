@@ -21,7 +21,9 @@ class AudioStreamProcessor extends AudioWorkletProcessor {
     }
 
     for (let channel = 0; channel < input.length; ++channel) {
-      output[channel].set(input[channel]);
+         if (output[channel]) { // check for output
+             output[channel].set(input[channel]);
+         }
     }
 
     return true;

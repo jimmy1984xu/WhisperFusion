@@ -1,5 +1,5 @@
-let websocket_uri = 'ws://localhost:6006';
-let websocket_audio_uri = 'ws://localhost:8888';
+let websocket_uri = 'ws://159.135.196.84:59005';
+let websocket_audio_uri = 'ws://159.135.196.84:59006';
 
 let bufferSize = 4096,
     AudioContext,
